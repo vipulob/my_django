@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <title>Compare Cars</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Car comparison.">
+    <meta name="keywords" content="Cars">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+    <style>
+        .stats {
+                border: 2px solid black;
+                margin-left: auto; 
+                margin-right: auto;
+            }
+            th, td {
+          border:1px solid black;
+          text-align:center;
+          }
+        change {
+          margin-left: auto; 
+          margin-right: auto;
+        }
+        
+        </style>
+    </head>
+<body>
+  <h1 style="text-align:center;">Compare cars features</h1>
+  
+  <form style="text-align:center;" action="/">
+    <input  type="submit" value="Main Page">
+  </form>
+  <form style="text-align:center;" action="/filter" method="post">
+    {% csrf_token %}
+    <input type="submit" name="ncap" value="Best NCAP Rated cars">
+    <input type="submit" name='sedan' value="Sedan Cars">
+    <input type="submit" name='suv' value="Compact SUVs">
+
+  </form>
+  <br>
+  <br>
+<table class="stats ">
+        {% if car_list %}
+        <tr>
+          <th>Car Name</th>
+          <th>Car Type</th>
+          <th>Manufacturer</th>
+          <th>Engine</th>
+          <th>Fuel</th>
+          <th>Airbags</th>
+          <th>Ground Clearance</th>
+          <th>GNAP Rating</th>
+          <th>Transmission</th>
+          <th>Mileage</th>
+          <th>Boot space</th>
+          <th>Fuel tank</th>
+          <th>Adas level</th>
+          <th>Dashboard</th>
+          <th>Ventilated seats</th>
+            {% for car in car_list %}
+            <tr>
+            <td>{{ car.car_name }}</td>
+            <td>{{ car.car_type }}</td>
+            <td>{{ car.manufacturer }}</td>
+            <td>{{ car.engine }}</td>
+            <td>{{ car.fuel }}</td>
+            <td>{{ car.airbags }}</td>
+            <td>{{ car.ground_clearance }}</td>
+            <td>{{ car.gncap_rating }}</td>
+            <td>{{ car.transmission }}</td>
+            <td>{{ car.mileage }}</td>
+            <td>{{ car.boot_space }}</td>
+            <td>{{ car.fuel_tank }}</td>
+            <td>{{ car.adas_level }}</td>
+            <td>{{ car.dashboard }}</td>
+            <td>{{ car.ventilated_seats }}</td>
+            </tr>
+            {% endfor %}
+        </tr>
+        {% endif %}
+    
+</table>
+
+</body>
+</html>

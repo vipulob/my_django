@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.template import loader
 from .models import Car
 
+import json
 
 def index(request):
     car_list = Car.objects.all()
@@ -42,3 +43,18 @@ def filter(request):
         }
 
     return HttpResponse(template.render(context, request))
+
+
+def car_data():
+    
+    data = '''
+    {
+        "Nexon":{
+        "Manufacture": "Tata",
+        "NCAP": "Global NCAP",
+        "Rating" : "5"
+        }
+    }
+    '''
+
+    return data

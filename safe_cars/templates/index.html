@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+     .checked {
+    color: orange;
+    }
+    .stats {
+            border: 2px solid black;
+            margin-left: auto; 
+            margin-right: auto;
+        }
+        th, td {
+      border:1px solid black;
+      text-align:center;
+      }
+    .change {
+      margin-left: auto; 
+      margin-right: auto;
+    }
+    </style>
+    </head>
+    <body>
+      <h1 style="text-align:center;">#safercarsforindia</h1>
+    {% load my_filters %}
+  
+   {% if car_list %}
+    <table class="stats ">
+        <tr>
+          <th>Car Name</th>
+          <th>Car Manufacturer</th>
+          <th>Crash Test Agency</th>
+          <th>Tested with</th>
+          <th colspan="2">Safety Rating</th>
+          <th>Publication Year</th>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Adult Occupant</td>
+            <td>Child Occupant</td>
+            <td></td>
+          </tr>
+          {% for car in car_list.car_data %}
+         
+          <tr>
+            <td>{{ car.car_name }}</td>
+            <td>{{ car.Manufacturer }}
+            <td>{{ car.NCAP }}
+            <td>{{ car.Test }}
+            <td>
+              {% for i in car.Adult|times %}
+              <span class="fa fa-star checked"></span>
+              {% endfor %}
+              {% for i in car.Adult|timesminus %}
+              <span class="fa fa-star"></span>
+              {% endfor %}
+              <br>
+              {{ car.Adult }} Stars
+            <td>
+              {% for i in car.Baby|times %}
+              <span class="fa fa-star checked"></span>
+              {% endfor %}
+              {% for i in car.Baby|timesminus %}
+              <span class="fa fa-star"></span>
+              {% endfor %}
+              <br>
+              {{ car.Baby }} Stars
+            <td>{{ car.Year }}
+          </tr>
+          {% endfor %}
+        </tr>
+      </table>
+    {% endif %}
+  </body>
+</html>

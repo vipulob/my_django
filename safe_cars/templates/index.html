@@ -1,20 +1,28 @@
 <!DOCTYPE html>
 <html>
+  <title>Safer Cars for India</title>
   <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="safecarsforindia">
+    <meta name="keywords" content="Cars">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
      .checked {
     color: orange;
     }
     .stats {
-            border: 2px solid black;
+            border: 2px solid rgb(21, 153, 140);
             margin-left: auto; 
             margin-right: auto;
         }
         th, td {
-      border:1px solid black;
+      border:1px solid rgb(21, 153, 140);
       text-align:center;
       }
+      tr:nth-child(even) {
+      background-color: #dddddd;
+    }
     .change {
       margin-left: auto; 
       margin-right: auto;
@@ -23,13 +31,33 @@
     </head>
     <body>
       <h1 style="text-align:center;">#safercarsforindia</h1>
+      <p>The crash test for a car is a very important parameter to be considered when buying a new car. 
+        This has been neglected in the Indian Car Market for a long time. NCAP(new car assessment programs) is carried out by
+        different independent organizations which do the intesive crash test and give out the results of safety ratings 
+        which every customer should study for the car they are purcashing. Better the ratings, the better the safety of Car<br>
+        Note: That this safety rating are given based on the results conducted with very specific enviroment and speed. 
+        It does not fully replicate the real world conditions. Damage could be more if driven on <b>higher speed compared to tested speed</b>. 
+      </p>
+      <br>
+      <h4> Following are the cars common in India and their safety ratings. (N/A = Not Available) </h4>
+      <form style="text-align:center;" action="/filter" method="post">
+        {% csrf_token %}
+        <input type="submit" name="ncap" value="Safest Cars">
+      </form>
+      {% if full_list %}
+      <form style="text-align:center;" action="/" method="post">
+        {% csrf_token %}
+        <input type="submit" name="full_list" value="Full List">
+      </form>
+      {% endif %}
+      <br>
     {% load my_filters %}
   
    {% if car_list %}
     <table class="stats ">
         <tr>
           <th>Car Name</th>
-          <th>Car Manufacturer</th>
+          <th>Manufacturer</th>
           <th>Crash Test Agency</th>
           <th>Tested with</th>
           <th colspan="2">Safety Rating</th>
@@ -46,11 +74,11 @@
           {% for car in car_list.car_data %}
          
           <tr>
-            <td>{{ car.car_name }}</td>
+            <td style="border-radius: 10px;">{{ car.car_name }}</td>
             <td>{{ car.Manufacturer }}
             <td>{{ car.NCAP }}
             <td>{{ car.Test }}
-            <td>
+            <td style="width:18%">
               {% for i in car.Adult|times %}
               <span class="fa fa-star checked"></span>
               {% endfor %}
@@ -59,7 +87,7 @@
               {% endfor %}
               <br>
               {{ car.Adult }} Stars
-            <td>
+              <td style="width:18%">
               {% for i in car.Baby|times %}
               <span class="fa fa-star checked"></span>
               {% endfor %}
@@ -74,5 +102,11 @@
         </tr>
       </table>
     {% endif %}
+    <br>
+    <h4>The infomation source are from:
+      <ul><a href="https://www.globalncap.org/" target="_blank">Global NCAP</a></ul>
+      <ul><a href="https://cdn.euroncap.com/" target="_blank">Euro NCAP</a></ul>
+    </h4>
+    <h3> Latest News</h3>
   </body>
 </html>
